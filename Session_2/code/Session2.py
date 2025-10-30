@@ -1,6 +1,6 @@
 # === GRUNDEINSTELLUNGEN ===
 
-model = "llama3.2:1B" 
+model = "llama3.2:1b" 
 
 #### Task 1: Create a Simple Chain for Summarization
 print("\n=== START TASK 1: Simple Chain ===")
@@ -129,7 +129,7 @@ agent_with_tools = create_tool_calling_agent(llm, tools, agent_prompt) # <-- LÖ
 agent_executor_with_tools = AgentExecutor(
     agent=agent_with_tools, 
     tools=tools, 
-    verbose=True # <-- LÖSUNG (sehr nützlich!)
+    verbose=True # <-- LÖSUNG
 ) 
 
 print("\n--- Agenten ausführen (3^5 + 12) ---")
@@ -160,7 +160,7 @@ memory = ConversationBufferMemory(
 # Add history placeholder to prompt
 agent_prompt_with_memory = ChatPromptTemplate.from_messages([
     ("system", "You are a helpful assistant. You use tools and remember the conversation."),
-    MessagesPlaceholder(variable_name="chat_history"), # <-- LÖSUNG (für das Gedächtnis)
+    MessagesPlaceholder(variable_name="chat_history"), # <-- LÖSUNG 
     ("human", "{user_input}"),
     MessagesPlaceholder(variable_name="agent_scratchpad"),
 ]) # <-- LÖSUNG
@@ -185,7 +185,7 @@ agent_with_tools_and_memory = create_tool_calling_agent(
 agent_executor_with_tools_and_memory = AgentExecutor(
     agent=agent_with_tools_and_memory,
     tools=tools,
-    memory=memory, # <-- LÖSUNG (das Gedächtnis verbinden)
+    memory=memory, # <-- LÖSUNG
     verbose=True
 )
 
