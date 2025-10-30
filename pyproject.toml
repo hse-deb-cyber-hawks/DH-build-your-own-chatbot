@@ -25,7 +25,7 @@ dependencies = [
     "debugpy>=1.8.12"
 ]
 readme = "README.md"
-requires-python = ">= 3.11"
+requires-python = ">= 3.11, <3.13"
 
 [tool.rye]
 managed = true
