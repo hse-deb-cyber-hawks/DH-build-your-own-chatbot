@@ -29,6 +29,10 @@ To run the chatbot on Linux, Windows, or macOS, use the following command:
 ```bash
 docker compose -f docker-compose.yml up --build
 ```
+or
+```bash
+docker compose -f Session_5/chatbot_task/docker-compose.yml up --build
+```
 
 This command will build and run the chatbot using the appropriate Docker Compose configuration for your system.
 
