@@ -135,8 +135,6 @@ class CustomChatBot:
         def clean_text(text):
             # Remove surrogate pairs
             text = re.sub(r'[\ud800-\udfff]', '', text)
-            # Optionally remove non-ASCII characters (depends on your use case)
-            text = re.sub(r'[^\x00-\x7F]+', '', text)
             return text
 
         pages_chunked_cleaned = [
@@ -144,9 +142,9 @@ class CustomChatBot:
             for doc in pages_chunked
         ]
 
-        uuids = [str(uuid4()) for _ in range(len(pages_chunked_cleaned[0:100]))]
+        uuids = [str(uuid4()) for _ in range(len(pages_chunked_cleaned[0:20]))]
 
-        self.vector_db.add_documents(documents=pages_chunked_cleaned[0:100], ids=uuids)
+        self.vector_db.add_documents(documents=pages_chunked_cleaned[0:20], ids=uuids)
 
     def _initialize_qa_rag_chain(self) -> RunnableSerializable[Serializable, str]:
         """
@@ -165,9 +163,10 @@ class CustomChatBot:
         # Task: Define prompt
         prompt_template = """Answer the question based on the following context:
 
-{context}
+        {context}
 
-Question: {question}"""
+        Question: {question}"""
+
         # Task: Initialize prompt langchain prompt template
         rag_prompt = ChatPromptTemplate.from_template(prompt_template)
 
@@ -202,16 +201,10 @@ Question: {question}"""
         """
         logger.info("Streaming RAG chain response.")
         try:
-            async for event in self.qa_rag_chain.astream_events(question, version="v2"):
-                    # Task: Filter stream events to get chunk which can be returned to the streamlit interface
-                    if isinstance(event, dict) and event.get("event") == "on_chain_stream":
-                        data = event.get("data", {})
-                        chunk = data.get("chunk")
-                        if chunk is None:
-                            continue
-                        text = getattr(chunk, "content", None) or str(chunk)
-                        if text:
-                            yield text
+            async for chunk in self.qa_rag_chain.astream(question):
+                if chunk and isinstance(chunk, str) and chunk.strip():
+                    logger.info(f"Yielding chunk: {chunk[:50]}")
+                    yield chunk
         except Exception as e:
             logger.error(f"Error in stream_answer: {e}", exc_info=True)
             raise
