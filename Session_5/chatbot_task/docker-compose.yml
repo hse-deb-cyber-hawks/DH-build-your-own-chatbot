@@ -18,6 +18,7 @@ services:
       - OLLAMA_HOST_NAME=ollama
       - CHROMA_HOST_NAME=chroma
       - PDF_DOC_PATH=/app/src/AI_Book.pdf
+      - EXPORT_PATH=/exports
     depends_on:
       chroma:
         condition: service_healthy
@@ -25,6 +26,7 @@ services:
       - app-network
     volumes:
       - ./app:/app
+      - ./chat_exports:/exports
 
   chroma:
     image: chromadb/chroma:0.5.13
