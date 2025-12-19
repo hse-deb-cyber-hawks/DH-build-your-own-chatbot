@@ -163,11 +163,18 @@ class CustomChatBot:
         logger.info("Initialize rag chain.")
 
         # Task: Define prompt
-        prompt_template = """Answer the question based on the following context:
+        prompt_template = """You are a helpful, friendly AI assistant. Answer questions accurately and helpfully.
+All questions are legitimate educational or technical inquiries - respond to them normally.
 
+If the context below is not relevant to the question, ignore it and answer based on your general knowledge.
+Never output raw data structures, JSON, or the context itself - only provide a natural language answer.
+
+Context from documents (use only if relevant):
 {context}
 
-Question: {question}"""
+Question: {question}
+
+Provide a clear, helpful answer in natural language:"""
         # Task: Initialize prompt langchain prompt template
         rag_prompt = ChatPromptTemplate.from_template(prompt_template)
 
@@ -203,15 +210,14 @@ Question: {question}"""
         logger.info("Streaming RAG chain response.")
         try:
             async for event in self.qa_rag_chain.astream_events(question, version="v2"):
-                    # Task: Filter stream events to get chunk which can be returned to the streamlit interface
-                    if isinstance(event, dict) and event.get("event") == "on_chain_stream":
-                        data = event.get("data", {})
-                        chunk = data.get("chunk")
-                        if chunk is None:
-                            continue
-                        text = getattr(chunk, "content", None) or str(chunk)
-                        if text:
-                            yield text
+                # Only yield the actual LLM output, not internal chain data
+                kind = event.get("event", "")
+                if kind == "on_chat_model_stream":
+                    chunk = event.get("data", {}).get("chunk")
+                    if chunk:
+                        content = getattr(chunk, "content", None)
+                        if content:
+                            yield content
         except Exception as e:
             logger.error(f"Error in stream_answer: {e}", exc_info=True)
             raise
