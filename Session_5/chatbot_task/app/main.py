@@ -4,6 +4,9 @@ import logging
 from langchain.schema import ChatMessage
 from src.chatbot import CustomChatBot
 import os
+import json
+from datetime import datetime
+from pathlib import Path
 
 INDEX_DATA = os.environ.get("INDEX_DATA", "0")
 PULL_EMBEDDING_MODEL = os.environ.get("PULL_EMBEDDING_MODEL", "0")
@@ -19,6 +22,44 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+# Create exports folder if it doesn't exist
+EXPORT_FOLDER = Path(os.environ.get("EXPORT_PATH", "/app/exports"))
+EXPORT_FOLDER.mkdir(exist_ok=True, parents=True)
+
+def export_chat_history():
+    """Export current chat history to a JSON file."""
+    if not st.session_state.messages:
+        st.warning("No messages to export!")
+        return
+    
+    # Create export data
+    export_data = {
+        "export_date": datetime.now().isoformat(),
+        "message_count": len(st.session_state.messages),
+        "messages": [
+            {
+                "role": msg.role,
+                "content": msg.content
+            }
+            for msg in st.session_state.messages
+        ]
+    }
+    
+    # Generate filename with timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"chat_export_{timestamp}.json"
+    filepath = EXPORT_FOLDER / filename
+    
+    # Save to file
+    try:
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(export_data, f, indent=2, ensure_ascii=False)
+        logger.info(f"Chat exported successfully to {filepath}")
+        st.success(f"✅ Chat exported successfully!\nLocation: {filepath}")
+    except Exception as e:
+        logger.error(f"Error exporting chat: {e}")
+        st.error(f"❌ Error exporting chat: {e}")
+
 # Initialize chatbot instance (avoid reloading)
 if "bot" not in st.session_state:
     st.session_state["bot"] = CustomChatBot(index_data=bool(int(INDEX_DATA)), pull_embedding_model=bool(int(PULL_EMBEDDING_MODEL)))
@@ -31,9 +72,14 @@ st.header("Chat with your Document")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I help you?")]
 
-if len(st.session_state["messages"]) == 0 or st.sidebar.button("Clear message history"):
+# Sidebar buttons
+if st.sidebar.button("Clear message history", key="clear_btn"):
     st.session_state["messages"].clear()
     st.session_state["messages"] = [ChatMessage(role="assistant", content="How can I help you?")]
+    st.rerun()
+
+if st.sidebar.button("📥 Export Chat", key="export_btn"):
+    export_chat_history()
 
 # Display chat messages
 for msg in st.session_state.messages:
