@@ -14,7 +14,7 @@ services:
       - INDEX_DATA=0
       - MODEL_NAME=llama3.2:1B
       - EMBEDDING_MODEL=bge-m3
-      - PULL_EMBEDDING_MODEL=0
+      - PULL_EMBEDDING_MODEL=1
       - OLLAMA_HOST_NAME=ollama
       - CHROMA_HOST_NAME=chroma
       - PDF_DOC_PATH=/app/src/AI_Book.pdf
