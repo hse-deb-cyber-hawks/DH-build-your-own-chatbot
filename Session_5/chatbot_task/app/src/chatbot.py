@@ -84,7 +84,7 @@ class CustomChatBot:
             model=MODEL_NAME,
             base_url=OLLAMA_URL,
             temperature=0.7,
-            num_predict=256
+            num_predict=512
         )
 
         # RAG-Chain einrichten

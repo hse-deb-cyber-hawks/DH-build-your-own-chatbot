@@ -1,0 +1,60 @@
+{
+  "export_date": "2026-01-02T12:25:51.282051",
+  "message_count": 7,
+  "selected_pdfs": [
+    "AI_Book.pdf"
+  ],
+  "messages": [
+    {
+      "role": "assistant",
+      "content": "Wie kann ich dir helfen?",
+      "used_chunks": []
+    },
+    {
+      "role": "user",
+      "content": "Was ist ein operationsverstäker",
+      "used_chunks": []
+    },
+    {
+      "role": "assistant",
+      "content": "Ich weiß nicht, was ein Operationsverstrcker ist. Kannst du mir mehr Kontext geben oder Informationen dazu, dass ich dir helfen kann?",
+      "used_chunks": [
+        {
+          "pdf": "Elk-Skript_WT_MTB_DEB_ab_SS24 V11b.pdf",
+          "page": 221,
+          "content": "Fakult t Wirtschaft & Technik   Operationsverstrker und Komparatoren  \nSkript zur Vorlesung  Elek tronik  bei DEB/MTB   Operationsverstrker (OP)  \n Elk-Skript_WT_MTB_DEB_ab_SS24 V11b.docx  gespeichert 26.09.2025 11:19:00 Seite 222 \n Minuth (und Kollegen und Quellen)  gedruckt 26.09.2025 11:19:00  von 384 \n als Integrator  \n Bild 290 \nVerwendung eines OPs \nzum Integrieren einer \nSpannung  \n invertierender \nIntegrator  \n \n \n \nStichworte  \n Virtuelle Masse, Eingangsstrom  = Strom durch den Kondensa"
+        },
+        {
+          "pdf": "Elk-Skript_WT_MTB_DEB_ab_SS24 V11b.pdf",
+          "page": 222,
+          "content": "Fakult t Wirtschaft & Technik   Operationsverstrker und Komparatoren  \nSkript zur Vorlesung  Elek tronik  bei DEB/MTB   Operationsverstrker (OP)  \n Elk-Skript_WT_MTB_DEB_ab_SS24 V11b.docx  gespeichert 26.09.2025 11:19:00 Seite 223 \n Minuth (und Kollegen und Quellen)  gedruckt 26.09.2025 11:19:00  von 384 \nErgebnis  \n2 34 4\nout 2 1\n12 3 3\nFAKTOR_2>0 FAKTOR_1>0R RR RUU URR R R+= +   \nSonderfall  \nR R RR R R\n= == =\n3 14 2\n \n  Bild 293 \nSonderfall:  \nDifferenzverstrker mit \neinem OP  \n \n \nErgebnis  "
+        },
+        {
+          "pdf": "Elk-Skript_WT_MTB_DEB_ab_SS24 V11b.pdf",
+          "page": 251,
+          "content": "Fakult t Wirtschaft & Technik   Operationsverstrker und Komparatoren  \nSkript zur Vorlesung  Elek tronik  bei DEB/MTB   Operationsverstrker (OP)  \n Elk-Skript_WT_MTB_DEB_ab_SS24 V11b.docx  gespeichert 26.09.2025 11:19:00 Seite 252 \n Minuth (und Kollegen und Quellen)  gedruckt 26.09.2025 11:19:00  von 384 \n12.1.11.3.  WS 06/07  \n Bild 330 Rechenfunktion des zu \nentwickelnden Verstrkers  \nSchritt 1  eine Eingangsspannungsspannung soll mit 10 verstrkt werden  \nund \nSchritt 2  um 1V ins Negative ver"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "1",
+      "used_chunks": []
+    },
+    {
+      "role": "assistant",
+      "content": "❌ **Falsch!**\n\n**Frage:** Was ist die Hauptfunktion von LT-Spiess in Bezug auf Schaltzeichen?\n**Deine Antwort:** Erstelle ein Schaltkreis\n**Richtig ist:** Analyse eines Schaltkreises\n**Erklärung:** \n\nDiese Frage wird wiederholt...\n",
+      "used_chunks": []
+    },
+    {
+      "role": "user",
+      "content": "3",
+      "used_chunks": []
+    },
+    {
+      "role": "assistant",
+      "content": "❌ **Falsch!**\n\n**Frage:** Was ist die Hauptfunktion von JK-Mastern und Slave-FFs?\n**Deine Antwort:** Analyse eines Schaltkreises\n**Richtig ist:** Modifiere einen bereits bestehenden Schaltkreis\n**Erklärung:** \n\nDiese Frage wird wiederholt...\n",
+      "used_chunks": []
+    }
+  ]
+}
